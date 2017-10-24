@@ -5,18 +5,14 @@ function multiplyStr(multiplier, multiplicand) {
     var multiplicandLen = multiplicand.length;
     for (let i = 0; i < multiplicandLen; i++) {
         let digit2 = getDigitFromStrAt(multiplicand, multiplicand.length - 1);
-        console.log('process row ' + i);
-        // TODO: need to initialize this with '0's for lines > 1
         lines[i] = Array(i).fill(0);
         let carry = 0;
 
         let unprocessedMultiplier = multiplier;
         for (let j = multiplier.length; j > 0; j--) {
-            // TODO: need to not destroy the multiplier here to save for next iteration
             let digit1 = getLastDigit(unprocessedMultiplier);
             let productWithCarry = (digit1 * digit2) + carry;
             let splitNum = splitNumAtLeastSignificantDigit(productWithCarry);
-            console.log(`result ${j}: leastDig: ${splitNum[1]}, carry: ${splitNum[0]}`);
 
             carry = splitNum[0];
             lines[i].unshift(splitNum[1]);
@@ -28,7 +24,6 @@ function multiplyStr(multiplier, multiplicand) {
         }
 
         multiplicand = multiplicand.slice(0, multiplicand.length - 1);
-        console.log(lines[i]);
     }
 
     let carry = 0;
@@ -36,21 +31,16 @@ function multiplyStr(multiplier, multiplicand) {
     let mostCols = lines.reduce((acc, line) => {
         return acc < line.length ? line.length : acc;
     }, 0);
-    
-    console.log('largest cols: ' + mostCols);
 
     lines = lines.map((line) => {
         let numFillSpaces = mostCols - line.length;
         return Array(numFillSpaces).fill(0).concat(line);
     });
-    console.log(lines);
 
     for (let col = mostCols - 1; col >= 0; col--) {
         let sumOfCol = carry;
-        console.log('num lines: ' + lines.length);
-        console.log(`col ${col}`)
+
         for (let line = 0; line < lines.length; line++) {
-            console.log(`line ${line}, value ${lines[line][col]}`);
             let val = lines[line][col];
             if (val !== undefined) {
                 sumOfCol = sumOfCol + lines[line][col];
@@ -66,7 +56,6 @@ function multiplyStr(multiplier, multiplicand) {
         result.unshift(carry);
     }
 
-    console.log(result);
     return result.join('');
 }
 
