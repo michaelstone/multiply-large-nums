@@ -78,6 +78,7 @@ function getLastDigit(str) {
 }
 
 function getDigitFromStrAt(str, index) {
+    // TODO: refactoring error here
     return str.charCodeAt(str.length - 1) - 48;
 }
 
