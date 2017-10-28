@@ -1,37 +1,32 @@
 
 function multiplyStr(multiplier, multiplicand) {
 
-    var lines = multiplicand.split('')
+    var lines = multiplicand
+        .split('')
         .reverse()
         .map(x => parseInt(x))
-        .map((multiplicandDigit, index) => {
-            let nextLine = Array(index).fill(0);
-            let carry = 0;
-    
-            multiplier.split('')
+        .map((multiplicandDigit, multiplicandIndex) => {   
+            return multiplier.split('')
                 .reverse()
                 .map(x => parseInt(x))
-                .map((multiplierDigit) => {
-                    let productWithCarry = (multiplicandDigit * multiplierDigit) + carry;
-                    let splitNum = splitNumAtLeastSignificantDigit(productWithCarry);
-        
-                    // TODO: create data structure here for current calculation + carry to remove usage of carry side effect
-                    carry = splitNum[0];
-                    nextLine.unshift(splitNum[1]);
-                });
-    
-            if (carry !== 0) {
-                nextLine.unshift(carry);
-            }
-
-            return nextLine;
-        })    
+                .reduce((acc, multiplierDigit, multiplierIndex) => {
+                    let product = (multiplicandDigit * multiplierDigit) + (acc[multiplierIndex + multiplicandIndex] ? acc[multiplierIndex + multiplicandIndex] : 0);
+                    let leastSigDigit = product % 10;
+                    acc[multiplierIndex + multiplicandIndex] = leastSigDigit;
+                    let carry =  Math.floor(product / 10);
+                    if (carry !== 0) {
+                        acc[multiplierIndex + multiplicandIndex + 1] = Math.floor(product / 10);
+                    }
+                    return acc;
+                }, Array(multiplicandIndex).fill(0))
+                .reverse();
+        });
 
     let carry = 0;
     let result = [];
 
     lines = fillWithZeros(lines);
-    // TODO: invert matrix here to make sum easier and get rid of for loop
+    // TODO: even better, sum as we go to reduce overall memory! (duh)
 
     for (let col = lines[0].length - 1; col >= 0; col--) {
         let sumOfCol = lines
@@ -39,10 +34,9 @@ function multiplyStr(multiplier, multiplicand) {
                 return line[col];
             })
             .reduce((acc, x) => acc + x, carry);
-        
-        let splitCarry = splitNumAtLeastSignificantDigit(sumOfCol);
-        carry = splitCarry[0];
-        result[col] = splitCarry[1];
+            
+        carry = Math.floor(sumOfCol / 10);
+        result[col] = sumOfCol % 10;
     }
 
     if (carry != 0) {
@@ -50,13 +44,6 @@ function multiplyStr(multiplier, multiplicand) {
     }
 
     return result.join('');
-}
-
-function splitNumAtLeastSignificantDigit(num) {
-    let rounded = Math.floor(num / 10) * 10;
-    let leastSigDigit = num - rounded;
-    let carry = rounded / 10;
-    return [carry, leastSigDigit];
 }
 
 function fillWithZeros(multiDimArray) { 
