@@ -73,13 +73,4 @@ function getLongestArray(multiDimArray) {
     }, 0);
 }
 
-function getLastDigit(str) {
-    return getDigitFromStrAt(str, str.length -1);
-}
-
-function getDigitFromStrAt(str, index) {
-    // TODO: refactoring error here
-    return str.charCodeAt(str.length - 1) - 48;
-}
-
 exports.multiplyStr = multiplyStr;
