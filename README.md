@@ -1,6 +1,8 @@
-Wrote this as a practice exercise after coming across Project Euler #1 on Hackerrack which seemed to be failing due to loss of precision in javascript with large numbers. Seems to be functional, but could use some more cleaning up.
+Wrote this as a practice exercise after coming across Project Euler #1 on Hackerrack which seemed to be failing due to loss of precision in javascript with large numbers.
 
-# TODO:
+Basic long multiplication implementation, running in O(n^2) time.
 
-- Add linter
-- Clean up code
+TODO:
+
+- Investigate faster multiplication algorithms
+e.g. https://en.wikipedia.org/wiki/Karatsuba_algorithm

@@ -1,8 +1,6 @@
 const expect = require('chai').expect;
 const multiplyStr = require('./index.js').multiplyStr;
 
-console.log(multiplyStr);
-
 describe('multiply-strings', () => {
     
     it('Two single digit numbers with a single digit result', () => {

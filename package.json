@@ -4,12 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --opts mocha.opts"
+    "test": "npx mocha --opts mocha.opts",
+    "lint": "npx eslint src/**"
   },
   "author": "Michael Stone",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.10.0",
     "mocha": "^4.0.1"
+  },
+  "engines": {
+    "npm": ">5.2.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "env": {
+      "commonjs": true,
+      "mocha": true
+    }
   }
 }

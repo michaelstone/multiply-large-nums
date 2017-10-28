@@ -25,7 +25,7 @@ function multiplyStr(multiplier, multiplicand) {
 }
 
 function ifExists(value, defaultVal) {
-    return value ? value : 0;
+    return value ? value : defaultVal;
 }   
 
 exports.multiplyStr = multiplyStr;
